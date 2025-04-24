@@ -1,4 +1,4 @@
-# insurance_chatbot.py
+
 import streamlit as st
 import PyPDF2
 import os
@@ -10,7 +10,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 
-# Function to read and process PDF documents to build knowledge base
+
 def process_documents(upload_folder):
     text_data = ""
     for file in os.listdir(upload_folder):
@@ -23,7 +23,7 @@ def process_documents(upload_folder):
             return texts
     return []
 
-# Initialize chatbot with vector store and conversational memory
+
 def initialize_chatbot(documents):
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_documents(documents, embeddings)
@@ -36,9 +36,9 @@ def initialize_chatbot(documents):
     )
     return chatbot
 
-# Streamlit UI
-st.set_page_config(page_title="Insurance Info Chatbot")
-st.title("AI-Powered Insurance Policy Information Chatbot")
+
+st.set_page_config(page_title="Insurance Policies Information Chatbot")
+st.title(" Insurance Policy Information Chatbot")
 
 st.sidebar.header("Upload Insurance Policy PDFs")
 uploaded_files = st.sidebar.file_uploader("Upload PDF", accept_multiple_files=True, type="pdf")
@@ -52,14 +52,13 @@ if uploaded_files:
 
     st.sidebar.success("Files uploaded successfully!")
 
-    # Process documents and initialize chatbot
     with st.spinner("Processing documents and initializing chatbot..."):
         documents = process_documents(upload_folder)
         chatbot = initialize_chatbot(documents)
 
     st.success("Chatbot is ready to assist you!")
 
-    # Chat interface
+ 
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
